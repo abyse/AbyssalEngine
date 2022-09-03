@@ -1,3 +1,9 @@
 [submodule "SDL"]
 	path = vendor/SDL
 	url = https://github.com/abyse/SDL.git
+[submodule "vendor/imgui"]
+	path = vendor/imgui
+	url = https://github.com/abyse/imgui.git
+[submodule "vendor/SDL_image"]
+	path = vendor/SDL_image
+	url = https://github.com/abyse/SDL_image.git

@@ -2,14 +2,28 @@ cmake_minimum_required(VERSION 3.7 FATAL_ERROR)
 
 project(AbyssalEngine)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/glad/include)
+set(CMAKE_CXX_FLAGS -Wall)
+set(CMAKE_CXX_FLAGS -static-libgcc)
+set(CMAKE_CXX_FLAGS -static-libstdc++)
 
-file(GLOB source_files "*.h" "*.cpp" "main/*.cpp" "src/*.cpp" "include/*.h" "include/*.hpp" ${CMAKE_CURRENT_SOURCE_DIR} *.c glad/src/gl.c)
+set(BUILD_SHARED_LIBS  OFF)
 
-add_executable(AbyssalEngine ${source_files})
+add_compile_definitions(SDL_MAIN_HANDLED)
 
-include(FindPkgConfig)
-pkg_search_module(SDL2 REQUIRED sdl2)
-target_include_directories(${PROJECT_NAME} PRIVATE ${SDL2_INCLUDE_DIRS})
-target_link_libraries(${PROJECT_NAME} PRIVATE ${SDL2_LIBRARIES})
+add_subdirectory(vendor)
 
+add_executable(Engine ./main/main.cpp)
+
+target_link_libraries(Engine
+        PUBLIC
+        glad
+        PRIVATE
+        ${CMAKE_DL_LIBS})
+
+target_link_libraries(Engine
+        PUBLIC
+        SDL2)
+
+target_link_libraries(Engine
+        PUBLIC
+        imgui)
